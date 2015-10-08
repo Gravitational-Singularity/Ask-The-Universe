@@ -1,0 +1,111 @@
+import java.util.*;
+import javax.swing.*;
+
+/*
+I wanted to build a program to randomly select a food choice when given two options. Though this program is basically a glorified coin flipper,
+it occured to me that one of the major troubles people have when flipping a coin is deciding which choice should be "heads" and which should be tails,
+and then remembering which choice corrisponded to which side. Minor problems, granted, but I still believed I could impliment a better way very quickly.
+To solve this problem, I simply chose to have the user input their options directly, and thus let the computer keep track of which choice was attached to which option.
+
+Additionally, the computer randomizes or "flips" three times over, to give the user a structured number of trials, but still more than one;
+in theory, people won't just keep running the program over and over again as might be the case with a single trial setup.
+*/
+
+class Food
+{
+	public static String choice, choice1 = null, choice2 = null;
+	public static Scanner scan = new Scanner(System.in);
+
+	
+	public static void main(String [] args)
+	{		
+	 //   JFrame f = new MyFrame();
+	 //   f.show();
+	 choiceMaker();
+	}	
+	
+	public static void choiceMaker()
+	{
+		try
+		{
+			System.out.println("What choice would you like help making? ");
+			choice = scan.next();
+			
+			if( (choice.charAt(choice.length() - 1) != '.') || (choice.charAt(choice.length() - 1) != '?') || (choice.charAt(choice.length() - 1) != '!') )
+			{
+				choice = optioner(choice);
+			} 
+			
+			System.out.print("Your first option " + choice + " is:");
+			choice1 = scan.next();
+			
+			if( (choice1.charAt(choice1.length() - 1) != '.') || (choice.charAt(choice.length() - 1) != '?') || (choice.charAt(choice.length() - 1) != '!') )
+			{
+				choice1 = optioner(choice1);
+			} 
+			
+			System.out.print("Your other " + choice + " choice is:");
+			choice2 = scan.next();
+			if( (choice2.charAt(choice2.length() - 1) != '.') || (choice2.charAt(choice2.length() - 1) != '?') || (choice2.charAt(choice2.length() - 1) != '!') )
+			{
+				choice2 = optioner(choice2);
+			}
+			
+			randomizer();
+		} catch (Exception e) 
+			{
+			System.out.println("I'm afraid an error has occured" + e);
+			choiceMaker();
+			}
+	}
+	
+	public static String optioner(String choice)
+	{
+		while ( (choice.charAt(choice.length() - 1) != '.') && (choice.charAt(choice.length() - 1) != '?') && (choice.charAt(choice.length() - 1) != '!') )
+		{
+			choice = choice + " " + scan.next();
+			
+		}
+		return choice;
+	}
+	
+	private static void randomizer()
+	{
+		Random rnd = new Random();
+		for(int a = 0; a < 3; a++)
+		{
+			int coin, ones = 0, twos = 0;
+			
+				for(int i = 0; i < 1000000; i++)
+				{		
+				coin = (int)(rnd.nextInt(2) + 1);
+				if(coin == 1)
+				{
+					ones++;
+				}
+				if(coin == 2)
+				{
+					twos++;
+				}
+			}
+			Chooser(ones, twos, choice1, choice2);
+		}
+	}	
+
+	
+	public static void Chooser(int ones, int twos, String choice, String choice2)
+	{
+		if (ones = twos)
+		{
+			System.out.println("The universe advises you to figure it out for yourself.");
+		}
+		if (ones > twos)
+		{
+			System.out.println("The universe speaks, you must choose " + choice1);
+		} 
+		if (twos > ones) 
+		{
+			System.out.println("The universe speaks, you must choose " + choice2);
+		}
+	}
+}
