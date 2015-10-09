@@ -95,7 +95,7 @@ class Food
 	
 	public static void Chooser(int ones, int twos, String choice, String choice2)
 	{
-		if (ones = twos)
+		if (ones == twos)
 		{
 			System.out.println("The universe advises you to figure it out for yourself.");
 		}
